@@ -80,7 +80,7 @@ int				get_next_line(int const fd, char **line)
 {
 	char		*str;
 	char		*tmpbuff;
-	static char	buff[fd][BUFF_SIZE + 1];
+	static char	buff[512][BUFF_SIZE + 1];
 	int			i;
 	int			j;
 
