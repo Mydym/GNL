@@ -80,7 +80,7 @@ int				get_next_line(int const fd, char **line)
 {
 	char		*str;
 	char		*tmpbuff;
-	static char	buff[BUFF_SIZE + 1];
+	static char	buff[fd][BUFF_SIZE + 1];
 	int			i;
 	int			j;
 
@@ -89,12 +89,12 @@ int				get_next_line(int const fd, char **line)
 	j = 0;
 	str = NULL;
 	tmpbuff = NULL;
-	i = ft_copy_line(fd, &str, buff, &tmpbuff);
-	ft_bzero(buff, BUFF_SIZE);
+	i = ft_copy_line(fd, &str, buff[fd], &tmpbuff);
+	ft_bzero(buff[fd], BUFF_SIZE);
 	if (i >= 0)
 		while (i > 0 && tmpbuff[j])
 		{
-			buff[j] = tmpbuff[j];
+			buff[fd][j] = tmpbuff[j];
 			j++;
 		}
 	*line = ft_strdup(str);
@@ -102,26 +102,3 @@ int				get_next_line(int const fd, char **line)
 	free(tmpbuff);
 	return (ft_retour(i, *line));
 }
-/*
-int				main(int argc, char **argv)
-{
-	int		fd;
-	int		i;
-	int		j;
-	char	*buff;
-
-	i = 0;
-	j = 1;
-	if (argc == 2)
-		if ((fd = open(argv[1], O_RDONLY)) != -1)
-		{
-			while ((i = get_next_line(fd, &buff)) != -1 && (i != 0))
-			{
-				ft_putnbr(j);
-				ft_putendl(buff);
-				j++;
-			}
-			ft_putnbr(i);
-		}
-	return (0);
-}*/
